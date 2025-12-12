@@ -1,2 +1,24 @@
-# cemrag-rrg
-Official repository for "Concept-Enhanced Multimodal RAG: Towards Trustworthy Radiology Report Generation"
+# Concept-Enhanced Multimodal RAG for Trustworthy Radiology Report Generation (CEMRAG)
+
+This is the **official repository** for the paper:
+
+> **Concept-Enhanced Multimodal RAG: Towards Trustworthy Radiology Report Generation**  
+
+---
+
+## 🧠 Overview
+
+CEMRAG is a framework for **radiology report generation** that combines:
+
+- **Interpretable visual concepts** extracted from chest X-ray images  
+- **Multimodal Retrieval-Augmented Generation (RAG)** over similar clinical cases  
+
+to improve both:
+
+- **Interpretability** of the generation process
+- **Factual accuracy** of generated reports  
+
+
+---
+
+
