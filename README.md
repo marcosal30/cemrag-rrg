@@ -21,4 +21,18 @@ to improve both:
 
 ---
 
+## 🔧 Code Release
+
+The official implementation of **CEMRAG** will be released **soon**.  
+
+## 📬 Contact
+
+For questions, collaborations, or additional information about this work, please contact:
+
+**Marco Salmè**  
+Email: marco.salme@unicampus.it
+
+
+
+
 
