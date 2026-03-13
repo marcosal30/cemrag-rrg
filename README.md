@@ -1,4 +1,4 @@
-# Concept-Enhanced Multimodal RAG for Trustworthy Radiology Report Generation (CEMRAG)
+# Concept-Enhanced Multimodal RAG: Towards Interpretable and Accurate Radiology Report Generation (CEMRAG)
 
 This is the **official repository** for the paper:
 
