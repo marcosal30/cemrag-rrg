@@ -36,15 +36,13 @@ class CLIPDataset(torch.utils.data.Dataset):
         caption = torch.load(os.path.join(self.data_folder, f"{id}_caption.pth")).squeeze()
         return image, caption, id
     
-def decompose_image(device,image_path,splicemodel,vocab):
+def decompose_image(device, image_path, splicemodel, vocab, img_directory_path=""):
 
     transform = transforms.Compose([
                 transforms.Resize(size=224, interpolation=transforms.InterpolationMode.BILINEAR, antialias=True),
                 transforms.CenterCrop(size=(224, 224))
-            ])  
-    #img_directory_path="/Users/marcosalme/Desktop/bioRAG/MIMIC-CXR/small_mimic_kaggle/"
-    img_directory_path="/Users/marcosalme/Desktop/bioRAG/MIMIC-CXR/shorter_side/"
-    path=img_directory_path+image_path
+            ])
+    path = os.path.join(img_directory_path, image_path)
     img = Image.open(path).convert("RGB")
     img=transform(img)
     img = transforms.ToTensor()(img)
@@ -68,11 +66,11 @@ def decompose_image(device,image_path,splicemodel,vocab):
 
 
 
-def decompose(device, decompose_df, splicemodel, vocab):
+def decompose(device, decompose_df, splicemodel, vocab, img_directory_path=""):
 
     data=[]
     for index, row in decompose_df.iterrows():
-        splice_decs= decompose_image(device,row['path'],splicemodel,vocab)
+        splice_decs = decompose_image(device, row['path'], splicemodel, vocab, img_directory_path)
         item = {
                 "id": row['dicom_id'],
                 "image": row['path'],
@@ -96,9 +94,7 @@ def decompose(device, decompose_df, splicemodel, vocab):
 def main(cfg: DictConfig):
 
     image_mean = torch.load('./mean_embedding_mimicTot.pt')
-    #image_mean = torch.load('./mean_embedding.pt')
-    #vocab_path = '/Users/marcosalme/Desktop/bioRAG/SPLICE_code/combined_top_terms.txt' #IU-xray
-    vocab_path = './vocab/filtered_bigramsMimicTot.txt' #MIMIC
+    vocab_path = './vocab/filtered_bigramsMimicTot.txt'
     vocab_size=200
     device='cpu'
     print(cfg.test.checkpoint)
@@ -162,7 +158,8 @@ def main(cfg: DictConfig):
 
     splicemodel = splice.SPLICE(image_mean, concepts, clip=model, device=device,l1_penalty = 0.1)
 
-    data=decompose(device,decompose_df,splicemodel,vocab)
+    img_dir = cfg.get("img_dir", "")
+    data = decompose(device, decompose_df, splicemodel, vocab, img_dir)
     output_filename='mimic-cxr_train_spliceTerms.json'
     with open(output_filename, 'w') as f:
         json.dump(data, f, indent=4)

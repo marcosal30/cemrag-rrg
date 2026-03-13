@@ -28,10 +28,3 @@ omegaconf>=2.3.0
 
 # Progress bars
 tqdm>=4.65.0
-
-# Distributed training
-# (torch.distributed is bundled with PyTorch)
-
-# Evaluation — clinical metrics
-# CheXBert: install separately from https://github.com/stanfordmlgroup/CheXBert
-# RadGraph: install separately from https://github.com/jackboyla/radgraph

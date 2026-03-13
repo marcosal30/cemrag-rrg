@@ -105,10 +105,8 @@ def load(name: str, vocabulary: str, vocabulary_size: int = -1, device = "cuda" 
         concepts = []
         vocab = []
 
-        #vocab_path = _download(os.path.join(GITHUB_HOST_LINK, "vocab", vocabulary + ".txt"), download_root or os.path.expanduser("~/.cache/splice/"), "vocab")
-        vocab_path="/Users/marcosalme/Desktop/bioRAG/SPLICE_code/data/vocab/"+vocabulary+".txt"
-        #concept_root = download_root or os.path.expanduser("~/.cache/splice/")
-        concept_root = "/Users/marcosalme/Desktop/bioRAG/SPLICE_code/data/"
+        vocab_path = _download(os.path.join(GITHUB_HOST_LINK, "vocab", vocabulary + ".txt"), download_root or os.path.expanduser("~/.cache/splice/"), "vocab")
+        concept_root = download_root or os.path.expanduser("~/.cache/splice/")
         os.makedirs(os.path.join(concept_root, "embeddings"), exist_ok=True)
 
         if vocabulary_size <= 0:
@@ -140,8 +138,7 @@ def load(name: str, vocabulary: str, vocabulary_size: int = -1, device = "cuda" 
     
     
     model_path = model_name.replace("/","-")
-    #mean_path = _download(os.path.join(GITHUB_HOST_LINK, "means", f"{library}_{model_path}_image.pt"), download_root or os.path.expanduser("~/.cache/splice/"), "means")
-    mean_path ="/Users/marcosalme/Desktop/bioRAG/SPLICE_code/data/"+"means/"+ f"{library}_{model_path}_image.pt"
+    mean_path = _download(os.path.join(GITHUB_HOST_LINK, "means", f"{library}_{model_path}_image.pt"), download_root or os.path.expanduser("~/.cache/splice/"), "means")
     image_mean = torch.load(mean_path, map_location=torch.device(device))
 
     splice = SPLICE(
@@ -172,8 +169,7 @@ def get_vocabulary(name: str, vocabulary_size: int, download_root = None):
         _description_
     """
     if name in SUPPORTED_VOCAB:
-        #vocab_path = _download(os.path.join(GITHUB_HOST_LINK, "vocab", name + ".txt"), download_root or os.path.expanduser("~/.cache/splice/"), "vocab")
-        vocab_path="/Users/marcosalme/Desktop/bioRAG/SPLICE_code/data/vocab/"+name+".txt"
+        vocab_path = _download(os.path.join(GITHUB_HOST_LINK, "vocab", name + ".txt"), download_root or os.path.expanduser("~/.cache/splice/"), "vocab")
         vocab = []
         with open(vocab_path, "r") as f:
             lines = f.readlines()

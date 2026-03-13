@@ -1,4 +1,5 @@
 import ast
+import os
 from typing import Dict, List
 
 import pandas as pd
@@ -21,6 +22,7 @@ class ImageTextEvalDataset(Dataset):
         text_max_length: int = 256,
         transform_config: Dict = None,
         normalize: str = "huggingface",
+        img_dir: str = "",
         **kwargs
     ):
         super().__init__()
@@ -30,6 +32,7 @@ class ImageTextEvalDataset(Dataset):
         self.text_max_length = text_max_length
         self.data_frac = data_frac
         self.normalize = normalize
+        self.img_dir = img_dir
 
         if self.name == "chexpert5x200":
             self.label_list = list(CHEXPERT_CLASS_PROMPTS.keys())
@@ -51,13 +54,7 @@ class ImageTextEvalDataset(Dataset):
         if self.name == "chexpert5x200":
             image_path = self.df["Path"][index]
         else:
-            #img_directory_path="/Users/marcosalme/Desktop/ReportGenerationFT/IU_xray/images/images_normalized/"
-            #img_directory_path="/Users/marcosalme/Desktop/bioRAG/MIMIC-CXR/small_mimic_kaggle/"
-            img_directory_path="/Users/marcosalme/Desktop/bioRAG/MIMIC-CXR/shorter_side/"
-            #img_directory_path = "/mimer/NOBACKUP/groups/naiss2023-6-336/msalme/ReportGenerationData/mimic-cxr-jpg/"
-            #img_directory_path="/mimer/NOBACKUP/groups/naiss2023-6-336/msalme/bioRAG/small_mimic_kaggle/"
-            #img_directory_path = "/mimer/NOBACKUP/groups/naiss2023-6-336/msalme/ReportGenerationData/IU_xray/images/images_normalized/"
-            image_path = img_directory_path+ self.df["path"][index]
+            image_path = os.path.join(self.img_dir, self.df["path"][index])
 
         if image_path.startswith("["):
             image_path = ast.literal_eval(image_path)[0]  # not random sampling

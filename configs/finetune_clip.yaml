@@ -1,0 +1,62 @@
+
+data_train:
+  name: "openi"
+  data_type: "imagetext"
+  data_path: "./openi_train.csv"
+  
+data_valid:
+  name: "openi"
+  data_type: "imagetext"
+  data_path: "./openi_valtest.csv"
+
+dataloader: 
+  train:
+    pin_memory: True
+    shuffle: True
+    drop_last: True
+    num_workers: 4
+    batch_size: 256
+
+  valid:
+      pin_memory: True
+      shuffle: False
+      drop_last: False
+      num_workers: 4
+      batch_size: 256
+
+transform: default
+optimizer: 
+    adamw:
+    name: adamw
+    config:
+      lr: 1e-3
+      weight_decay: 1e-3
+scheduler:
+  name: "cosine" 
+  config:
+    total_epochs: 10
+    warmup_epochs: 1
+loss: 
+  cxr_clip:
+    label_smoothing: 0.0
+    i2i_weight: 1.0
+    t2t_weight: 0.5
+    loss_ratio: 1.0
+
+checkpoint: "./checkpoint_swint"
+
+model:
+  image_encoder:
+    name: swint
+  load_backbone_weights: True
+  freeze_backbone_weights: False
+
+base:
+  seed: 1234
+  amp : True
+  image_size: 224
+  loss_best: total
+  data_frac: 1.0
+  output:
+    checkpoint: ./checkpoints/
+    tensorboard: ./tensorboard/
