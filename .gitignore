@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Data (large files — download separately)
+data/mimic-cxr/
+data/iu_xray/
+*.h5
+*.hdf5
+
+# Model checkpoints and embeddings
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.safetensors
+embeddings/
+checkpoints/
+
+# FAISS indices
+*.index
+*.npy
+
+# Logs
+*.log
+runs/
+wandb/
+lightning_logs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/

@@ -1,0 +1,26 @@
+
+data_train: openi 
+data_valid: openi
+dataloader: dataloader_128
+transform: default
+optimizer: adamw
+scheduler: cosine_epoch30_warmup3
+loss: cxr_clip
+checkpoint: "./checkpoint_swint/"
+
+model:
+  image_encoder:
+    name: swint
+  load_backbone_weights: True
+  freeze_backbone_weights: True
+
+base:
+  seed: 1234
+  amp : True
+  image_size: 224
+  loss_best: cxr_clip
+  data_frac: 1.0
+  output:
+    checkpoint: ./checkpoints/
+    tensorboard: ./tensorboard/
+
