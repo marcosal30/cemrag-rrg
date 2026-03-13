@@ -2,7 +2,7 @@
 
 This is the **official repository** for the paper:
 
-> **Concept-Enhanced Multimodal RAG: Towards Trustworthy Radiology Report Generation**
+> **Concept-Enhanced Multimodal RAG: Towards Interpretable and Accurate Radiology Report Generation**
 
 ---
 
